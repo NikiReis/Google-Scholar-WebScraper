@@ -1,78 +1,82 @@
 import csv
 from bs4 import BeautifulSoup
 import requests
+import os
 
-url = requests.get('').content
-
-
-soup = BeautifulSoup(url, 'html.parser')
-lista = soup.find_all('div', class_="gs_ri")
-
+JUNK = [['… ', ' ', ' …', '…'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]']]
 datalist = []
 data = {}
-fields = ['Book','Authors','Journal','Year','Publisher','Link']
 
-for item in lista:
-  try:
 
-    title = item.find("h3", class_='gs_rt').text.strip()
-    if '[PDF]' in title or '[HTML]' in title or '[LIVRO]' in title:
-      title = title.replace('[PDF]', '').replace('[HTML]', '').replace('[LIVRO][B]', '')
-    data['Book'] = title
+def filtering(lista):
+    for item in lista:
 
-    authors = item.find("div", class_="gs_a").text.split('-')[0]
-    data['Authors'] = authors
+        book = item.find("h3", class_='gs_rt').text.strip()
+        if JUNK[1][0] in book or JUNK[1][1] in book or JUNK[1][2] in book:
+            book = book.replace(JUNK[1][0], '').replace(JUNK[1][1], '').replace(JUNK[1][2], '').replace(JUNK[1][3], '')
 
-    journal = item.find("div", class_="gs_a").text.split('-')[1].strip().split(', ')[0]
-    data['Journal'] = journal
+        authors = item.find('div', class_='gs_a').text.strip().split('-')[0]
 
-    year = item.find("div", class_="gs_a").text.split("-")[1].strip().split(', ')[1]
-    data['Year'] = year
+        if JUNK[0][0] in authors or JUNK[0][1] in authors or JUNK[0][2] in authors:
+            authors = authors.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '')
 
-    publisher = item.find("div", class_="gs_a").text.split("-")[2].strip().split()[0]
-    data['Publisher'] = publisher
+        jornal = item.find("div", class_="gs_a").text.strip().split('-')[1].strip().split(',')[0]
 
-    link = item.find("a", href=True)
-    if link:
-      data['Link'] = link['href']
-    else:
-      data['Link'] = ''
+        if JUNK[0][0] in jornal or JUNK[0][1] in jornal or JUNK[0][2] in jornal or JUNK[0][3] in jornal:
+            jornal = jornal.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '').replace(
+                JUNK[0][3],
+                '')
 
-  except IndexError:
+        year = item.find("div", class_="gs_a").text.strip().split('-')[1].split()[-1]
 
-    title = item.find("h3", class_='gs_rt').text.strip()
+        publisher = item.find("div", class_="gs_a").text.strip().split('-')[2].strip()
 
-    if '[PDF]' in title or '[HTML]' in title or '[LIVRO]' in title:
-      title = title.replace('[PDF]', '').replace('[HTML]', '').replace('[LIVRO][B]', '')
-    data['Book'] = title
+        if JUNK[0][0] in publisher or JUNK[0][1] in publisher or JUNK[0][2]:
+            publisher = publisher.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '')
 
-    authors = item.find("div", class_="gs_a").text.split('-')[0]
-    data['Authors'] = authors
+        data['Book'] = book
+        data['Authors'] = authors
+        data['Jornal'] = jornal
+        data['Year'] = year
+        data['Publisher'] = publisher
 
-    journal_year_publisher = item.find('div', class_='gs_a').text.split('-')
-    if len(journal_year_publisher) >= 3:
-      journal = journal_year_publisher[1].strip().split(',')[0]
-      year = journal_year_publisher[1].strip().split(',')[-1].strip()
-      publisher = journal_year_publisher[2].strip().split()[0]
-    else:
-      journal = '****'
-      year = '****'
-      publisher = '****'
+        link = item.find("a", href=True)
+        if link:
+            data['Link'] = link['href']
+        else:
+            data['Link'] = '****'
 
-    data['Journal'] = journal
-    data['Year'] = year
-    data['Publisher'] = publisher
+        datalist.append(data.copy())
+        data.clear()
 
-    link = item.find("a", href=True)
-    if link:
-      data['Link'] = link['href']
-    else:
-      data['Link'] = ''
+    ingestocsv(datalist)
 
-  datalist.append(data.copy())
-  data.clear()
 
-with open('data_set.csv', 'a', newline='') as f:
-  writer = csv.DictWriter(f, fieldnames=fields)
-  writer.writerows(datalist)
+def scraping():
+    try:
+        url = requests.get(
+            'https://scholar.google.com/scholar?start=0&q=gest%C3%A3o+da+diversidade&hl=en&as_sdt=0,5&as_vis=1').content
 
+        soup = BeautifulSoup(url, 'html.parser')
+        lista = soup.find_all('div', class_="gs_ri")
+        filtering(lista)
+
+    except ConnectionError:
+        print(f'Ocorreu um erro de conexão, por favor verifique sua conexão com a internet!\n{ConnectionError}')
+
+
+fields = ['Book', 'Authors', 'Jornal', 'Year', 'Publisher', 'Link']
+
+
+def ingestocsv(dados):
+    with open('dataframe.csv', 'a', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fields)
+
+        if os.stat("dataframe.csv").st_size <= 0:
+            writer.writeheader()
+
+        writer.writerows(dados)
+
+
+if __name__ == '__main__':
+    scraping()
