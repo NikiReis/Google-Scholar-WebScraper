@@ -1,111 +1,124 @@
-import csv
+# Importação das bibliotecas necessárias para o funcionamento do 'web' scraper
 from bs4 import BeautifulSoup
 import requests
+import csv
 import os
 
 
+# Constantes da aplicação
+# Constante utilizadas para a remoção de informações desnecessárias após a coleta dos dados do Google Scholar
 FIELDS = ['Book', 'Authors', 'Jornal', 'Year', 'Publisher', 'Link']
-JUNK = [['… ', ' ', ' …', '…'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]']]
-datalist = []
-data = {}
+JUNK = [['… ', ' ', ' …'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]']]
+
+# Variáveis usadas para a coleta dos dados
+datalist = []  # Lista utilizada para salvar os dicionários apos a coleta dos dados
+data = {}  # Dicionario para salvar temporariamente os dados do artigo/ livro
 
 
+# Função utilizada para remover as informações desnecessárias e após a remoção salvar os dados em um dicionário de dados
 def filtering(lista):
 
     try:
 
+        # Itera sobre a lista de resultados da pesquisa passada como parâmetro da função
         for item in lista:
 
+            # Salva o nome do artigo/livro, e remove informações desnecessárias
             book = item.find('h3', class_='gs_rt').text.strip()
-            if JUNK[1][0] in book or JUNK[1][1] in book or JUNK[1][2] in book:
-                book = book.replace(JUNK[1][0], '').replace(JUNK[1][1], '').replace(JUNK[1][2], '').replace(JUNK[1][3], '')
+            for junk in JUNK[1]:
+                book = book.replace(junk, '')
 
-            item_length = item.find('div',class_='gs_a').text.split('-')
+            # Verifica o tamanho da 'string' após realização de quebra do texto pelo elemento hífen
+            # Sendo o tamanho da variável maior ou igual a 3, coleta dados de autores, jornal, publicadora e ano, e remove informações desnecessárias
+            item_length = item.find('div', class_='gs_a').text.split('-')
             if len(item_length) >= 3:
 
                 authors = item.find('div', class_='gs_a').text.strip().split('-')[0]
-                if JUNK[0][0] in authors or JUNK[0][1] in authors or JUNK[0][2] in authors:
-                    authors = authors.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '')
-
+                for junk in JUNK[0]:
+                    authors = authors.replace(junk, '')
 
                 jornal = item.find("div", class_="gs_a").text.strip().split('-')[1].strip().split(',')[0]
-                if JUNK[0][0] in jornal or JUNK[0][1] in jornal or JUNK[0][2] in jornal or JUNK[0][3] in jornal:
-                    jornal = jornal.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '').replace(
-                        JUNK[0][3],
-                        '')
+                for junk in JUNK[0]:
+                    jornal = jornal.replace(junk, '')
 
                 year = item.find("div", class_='gs_a').text.strip().split('-')[1].split()[-1]
 
                 publisher = item.find("div", class_="gs_a").text.strip().split('-')[2].strip()
-                if JUNK[0][0] in publisher or JUNK[0][1] in publisher or JUNK[0][2]:
-                    publisher = publisher.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '')
+                for junk in JUNK[0]:
+                    publisher = publisher.replace(junk, '')
 
-            
+            # No caso do tamanho da variável ser menor que três, apenas a coleta de dados do artigo e autores é realizada
+            # '****' é atribuído às variáveis de 'journal' e 'year', tendo em vista o padrão do Google Scholar.
             else:
 
-                authors = item.find('div', class_='gs_a').text.split('-')[0].strip()
-                if JUNK[0][0] in authors or JUNK[0][1] in authors or JUNK[0][2] in authors:
-                    authors = authors.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '')
+                authors = item.find('div', class_='gs_a').text.strip().split('-')[0]
+                for junk in JUNK[0]:
+                    authors = authors.replace(junk, '')
 
-
-                publisher = item.find('div', class_='gs_a').text.split('-')[-1].strip()
-                if JUNK[0][0] in publisher or JUNK[0][1] in publisher or JUNK[0][2]:
-                    publisher = publisher.replace(JUNK[0][0], '').replace(JUNK[0][1], '').replace(JUNK[0][2], '')
+                publisher = item.find("div", class_="gs_a").text.strip().split('-')[-1].strip()
+                for junk in JUNK[0]:
+                    publisher = publisher.replace(junk, '')
 
                 year = '****'
                 jornal = '****'
 
-
+            # Insere os dados coletados temporariamente no dicionário de dados.
             data['Book'] = book
             data['Authors'] = authors
             data['Jornal'] = jornal
             data['Year'] = year
             data['Publisher'] = publisher
 
+            # salva o link do artigo, caso ele tenha um link
             link = item.find('a', href=True)
             if link:
                 data['Link'] = link['href']
             else:
                 data['Link'] = '****'
 
+            # Salva o dicionário em uma lista e limpa o dicionário para uma nova coleta
             datalist.append(data.copy())
             data.clear()
 
-
+    # Caso haja a interrupção da aplicação pelo usuário, uma mensagem de erro é retornada
     except KeyboardInterrupt:
-        print('Interrompendo requisição devido a interrupção forçada!\n')
+        print('Interrompendo requisição devido à interrupção forçada!\n')
         print(f'Error: {KeyboardInterrupt}')
-        
 
-    except IndexError:
-        pass
-
+    # Após a iteração sobre a lista, chama a função ingestão de dados passando como o parâmetro a lista que guarda os dicionários de dados
     ingestocsv(datalist)
 
 
-def scraping():
+def main():
+
+    # Tenta fazer a requisição ao link desejado
     try:
         url = requests.get(
-            'https://scholar.google.com/scholar?start=130&q=gest%C3%A3o+da+diversidade&hl=en&as_sdt=0,5&as_vis=1').content
+            'https://scholar.google.com/scholar?start=160&q=gest%C3%A3o+da+diversidade&hl=en&as_sdt=0,5&as_vis=1').content
 
+        # Salva o campo HTML desejado de toda a página para uma lista e chama a função de coleta e limpeza de dados
         soup = BeautifulSoup(url, 'html.parser')
         lista = soup.find_all('div', class_='gs_ri')
         filtering(lista)
 
-    except ConnectionError:
+    # Caso o usuário não esteja conectado com a 'internet' a aplicação é interrompida, e uma mensagem de erro é exibida
+    except requests.exceptions.RequestException:
         print(f'Ocorreu um erro de conexão, por favor verifique sua conexão com a internet!')
-        print(f'Error: {ConnectionError}')
+        print(f'Erro: {requests.exceptions.RequestException}')
 
 
+# Função de ingestão de dados em arquivo CSV
 def ingestocsv(dados):
-    with open('newdataframe.csv', 'a', newline='') as f:
+    with open('dataframe.csv', 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=FIELDS)
 
-        if os.stat('newdataframe.csv').st_size <= 0:
+        # # Caso o arquivo CSV ainda não exista ou caso exista, mas esteja vazio, os dados da constante 'FIELDS' são inseridos como colunas
+        if os.stat('dataframe.csv').st_size <= 0:
             writer.writeheader()
 
         writer.writerows(dados)
 
 
+# Inicializacao da aplicacao
 if __name__ == '__main__':
-    scraping()
+    main()
