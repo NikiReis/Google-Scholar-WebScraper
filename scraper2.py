@@ -28,8 +28,9 @@ def filtering(lista):
             for junk in JUNK[1]:
                 book = book.replace(junk, '')
 
-            # Verifica o tamanho da 'string' após realização de quebra do texto pelo elemento hífen
-            # Sendo o tamanho da variável maior ou igual a 3, coleta dados de autores, jornal, publicadora e ano, e remove informações desnecessárias
+            # Verifica o tamanho da 'string' após realização de quebra do texto pelo elemento hífen Sendo o tamanho
+            # da variável maior ou igual a 3, coleta dados de autores, jornal, publicadora e ano,
+            # e remove informações desnecessárias
             item_length = item.find('div', class_='gs_a').text.split('-')
             if len(item_length) >= 3:
 
@@ -47,8 +48,9 @@ def filtering(lista):
                 for junk in JUNK[0]:
                     publisher = publisher.replace(junk, '')
 
-            # No caso do tamanho da variável ser menor que três, apenas a coleta de dados do artigo e autores é realizada
-            # '****' é atribuído às variáveis de 'journal' e 'year', tendo em vista o padrão do Google Scholar.
+            # No caso do tamanho da variável ser menor que três, apenas a coleta de dados do artigo e autores é
+            # realizada '****' é atribuído às variáveis de 'journal' e 'year', tendo em vista o padrão do Google
+            # Scholar.
             else:
 
                 authors = item.find('div', class_='gs_a').text.strip().split('-')[0]
@@ -85,40 +87,54 @@ def filtering(lista):
         print('Interrompendo requisição devido à interrupção forçada!\n')
         print(f'Error: {KeyboardInterrupt}')
 
-    # Após a iteração sobre a lista, chama a função ingestão de dados passando como o parâmetro a lista que guarda os dicionários de dados
+    # Após a iteração sobre a lista, chama a função ingestão de dados passando como o parâmetro a lista que guarda os
+    # dicionários de dados
     ingestocsv(datalist)
 
 
 def main():
+    c = 0
+    subject = str(input('Digite o assunto do artigo que deseja recuperar: '))
 
-    # Tenta fazer a requisição ao link desejado
-    try:
-        url = requests.get(
-            'https://scholar.google.com/scholar?start=160&q=gest%C3%A3o+da+diversidade&hl=en&as_sdt=0,5&as_vis=1').content
+# Tenta fazer a requisição ao link desejado
+    while 1:
+        x = c*10
+        try:
+            url = requests.get(
+                f'https://scholar.google.com/scholar?start={str(x)}&q={subject}&hl=en&as_sdt=0,5').content
 
-        # Salva o campo HTML desejado de toda a página para uma lista e chama a função de coleta e limpeza de dados
-        soup = BeautifulSoup(url, 'html.parser')
-        lista = soup.find_all('div', class_='gs_ri')
-        filtering(lista)
+            # Salva o campo HTML desejado de toda a página para uma lista e chama a função de coleta e limpeza de dados
+            soup = BeautifulSoup(url, 'html.parser')
+            lista = soup.find_all('div', class_='gs_ri')
+            filtering(lista)
 
     # Caso o usuário não esteja conectado com a 'internet' a aplicação é interrompida, e uma mensagem de erro é exibida
-    except requests.exceptions.RequestException:
-        print(f'Ocorreu um erro de conexão, por favor verifique sua conexão com a internet!')
-        print(f'Erro: {requests.exceptions.RequestException}')
+        except requests.exceptions.RequestException:
+            print(f'Ocorreu um erro de conexão, por favor verifique sua conexão com a internet!')
+            print(f'Erro: {requests.exceptions.RequestException}')
+            break
+        print(x)
+        resposta = str(input('Deseja fazer mais uma pesquisa ? ')).upper()
+
+        if resposta != 'Y':
+            break
+        else:
+            c += 1
 
 
 # Função de ingestão de dados em arquivo CSV
 def ingestocsv(dados):
-    with open('dataframe.csv', 'a', newline='', encoding='utf-8') as f:
+    with open('dataframe3.csv', 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=FIELDS)
 
-        # # Caso o arquivo CSV ainda não exista ou caso exista, mas esteja vazio, os dados da constante 'FIELDS' são inseridos como colunas
-        if os.stat('dataframe.csv').st_size <= 0:
+        # Caso o arquivo CSV ainda não exista ou caso exista, mas esteja vazio, os dados da constante 'FIELDS' são
+        # inseridos como colunas
+        if os.stat('dataframe3.csv').st_size <= 0:
             writer.writeheader()
 
         writer.writerows(dados)
 
 
-# Inicializacao da aplicacao
+# Inicializa da aplicação
 if __name__ == '__main__':
     main()
