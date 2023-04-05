@@ -1,3 +1,4 @@
+
 # Importação das bibliotecas necessárias para o funcionamento do 'web' scraper
 from bs4 import BeautifulSoup
 import requests
@@ -8,7 +9,7 @@ import os
 # Constantes da aplicação
 # Constante utilizadas para a remoção de informações desnecessárias após a coleta dos dados do Google Scholar
 FIELDS = ['Book', 'Authors', 'Jornal', 'Year', 'Publisher', 'Link']
-JUNK = [['… ', ' ', ' …'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]']]
+JUNK = [['… ', ' ', ' …',' ','…'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]','[CITATION][C]']]
 
 # Variáveis usadas para a coleta dos dados
 datalist = []  # Lista utilizada para salvar os dicionários apos a coleta dos dados
@@ -36,17 +37,17 @@ def filtering(lista):
 
                 authors = item.find('div', class_='gs_a').text.strip().split('-')[0]
                 for junk in JUNK[0]:
-                    authors = authors.replace(junk, '')
+                    authors = authors.replace(junk, ' ')
 
                 jornal = item.find("div", class_="gs_a").text.strip().split('-')[1].strip().split(',')[0]
                 for junk in JUNK[0]:
-                    jornal = jornal.replace(junk, '')
+                    jornal = jornal.replace(junk, ' ')
 
                 year = item.find("div", class_='gs_a').text.strip().split('-')[1].split()[-1]
 
                 publisher = item.find("div", class_="gs_a").text.strip().split('-')[2].strip()
                 for junk in JUNK[0]:
-                    publisher = publisher.replace(junk, '')
+                    publisher = publisher.replace(junk, ' ')
 
             # No caso do tamanho da variável ser menor que três, apenas a coleta de dados do artigo e autores é
             # realizada '****' é atribuído às variáveis de 'journal' e 'year', tendo em vista o padrão do Google
@@ -55,11 +56,11 @@ def filtering(lista):
 
                 authors = item.find('div', class_='gs_a').text.strip().split('-')[0]
                 for junk in JUNK[0]:
-                    authors = authors.replace(junk, '')
+                    authors = authors.replace(junk, ' ')
 
                 publisher = item.find("div", class_="gs_a").text.strip().split('-')[-1].strip()
                 for junk in JUNK[0]:
-                    publisher = publisher.replace(junk, '')
+                    publisher = publisher.replace(junk, ' ')
 
                 year = '****'
                 jornal = '****'
@@ -93,47 +94,45 @@ def filtering(lista):
 
 
 def main():
-    c = 0
+    c=1
     subject = str(input('Digite o assunto do artigo que deseja recuperar: '))
+    quantity = str(input('Digite quantas paginas de artigos que deseja recuperar: '))   
 
-# Tenta fazer a requisição ao link desejado
-    while 1:
-        x = c*10
+
+    for x in range(0, int(quantity)*10 ,10):
+    # Tenta fazer a requisição ao link desejado
         try:
             url = requests.get(
-                f'https://scholar.google.com/scholar?start={str(x)}&q={subject}&hl=en&as_sdt=0,5').content
-
+                f'https://scholar.google.com/scholar?start={x}&q={subject}&hl=en&as_sdt=0,5').content
+                
             # Salva o campo HTML desejado de toda a página para uma lista e chama a função de coleta e limpeza de dados
             soup = BeautifulSoup(url, 'html.parser')
             lista = soup.find_all('div', class_='gs_ri')
             filtering(lista)
 
-    # Caso o usuário não esteja conectado com a 'internet' a aplicação é interrompida, e uma mensagem de erro é exibida
+        # Caso o usuário não esteja conectado com a 'internet' a aplicação é interrompida, e uma mensagem de erro é exibida
         except requests.exceptions.RequestException:
             print(f'Ocorreu um erro de conexão, por favor verifique sua conexão com a internet!')
             print(f'Erro: {requests.exceptions.RequestException}')
-            break
-        print(x)
-        resposta = str(input('Deseja fazer mais uma pesquisa ? ')).upper()
 
-        if resposta != 'Y':
-            break
-        else:
-            c += 1
+        finally:
+            print(f'Pagina {c} coletada com sucesso!')
+            c+=1
+            
+    
+
 
 
 # Função de ingestão de dados em arquivo CSV
 def ingestocsv(dados):
-    with open('dataframe3.csv', 'a', newline='', encoding='utf-8') as f:
+
+    if os.path.exists('dados.csv'):
+        os.remove('dados.csv')
+
+    with open('dados.csv', 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=FIELDS)
-
-        # Caso o arquivo CSV ainda não exista ou caso exista, mas esteja vazio, os dados da constante 'FIELDS' são
-        # inseridos como colunas
-        if os.stat('dataframe3.csv').st_size <= 0:
-            writer.writeheader()
-
+        writer.writeheader()
         writer.writerows(dados)
-
 
 # Inicializa da aplicação
 if __name__ == '__main__':
