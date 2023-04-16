@@ -1,0 +1,52 @@
+Book,Authors,Jornal,Year,Publisher,Link
+ Python,W Python ,Python Releases Wind,2021.0,Citeseer,https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=1f2ee3831eebfc97bfafd514ca2abb7e2c5c86bb
+ Pattern for python,"T De Smedt, W Daelemans ",The Journal of Machine Learning Research,2012.0,jmlr.org,https://www.jmlr.org/papers/volume13/desmedt12a/desmedt12a.pdf
+Pingouin: statistics in Python.,R Vallat ,J. Open Source Softw.,2018.0,scholar.archive.org,https://scholar.archive.org/work/4ai543lwcfedrikhifxdvm6dfi/access/wayback/https://www.theoj.org/joss-papers/joss.01026/10.21105.joss.01026.pdf
+PVLIB python 2015,"WF Holmgren, RW Andrews  ",2015 ieee 42nd  ,2015.0,ieeexplore.ieee.org,https://ieeexplore.ieee.org/abstract/document/7356005/
+ Think python,A Downey ,Dados não disponíveis,2012.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=1mZtP9H6OMQC&oi=fnd&pg=PR2&dq=Python&ots=fyBYnbrTOm&sig=4plVu1vv9xTXKE_l5-5ChYLP3m4
+ ParselTongue: AIPS Talking Python,"M Kettenis, HJ van Langevelde  ",  and systems XV,2006.0,adsabs.harvard.edu,https://adsabs.harvard.edu/full/record/seri/ASPC./0351/2006ASPC..351..497K.html
+ Python machine learning,S Raschka ,Dados não disponíveis,2015.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=GOVOCwAAQBAJ&oi=fnd&pg=PP1&dq=Python&ots=NdfwMiXSVI&sig=fcZy3PfSzkVhLa-e567MHl7FRfU
+ ACPYPE-Antechamber python parser interface,"AW Sousa da Silva, WF Vranken ",BMC research notes,2012.0,Springer,https://link.springer.com/article/10.1186/1756-0500-5-367
+Python for scientific computing,TE Oliphant ,Computing in science & engineering,2007.0,ieeexplore.ieee.org,https://ieeexplore.ieee.org/abstract/document/4160250/
+Python for scientists and engineers,"KJ Millman, M Aivazis ",Computing in science & engineering,2011.0,ieeexplore.ieee.org,https://ieeexplore.ieee.org/abstract/document/5725235/
+Matplotlib in python,"N Ari, M Ustazhanov ",2014 11th International Conference on  ,2014.0,ieeexplore.ieee.org,https://ieeexplore.ieee.org/abstract/document/6997585/
+MatLab vs. Python vs. R,"C Ozgur, T Colliau, G Rogers, Z Hughes ",Journal of data Science,2017.0,airitilibrary.com,https://www.airitilibrary.com/Publication/alDetailedMesh?docid=16838602-201707-201711160005-201711160005-355-371
+ Pybel: a Python wrapper for the OpenBabel cheminformatics toolkit,"NM O'Boyle, C Morley  ",Chemistry Central  ,2008.0,bmcchem.biomedcentral.com,https://bmcchem.biomedcentral.com/articles/10.1186/1752-153X-2-5
+Pykaldi: A python wrapper for kaldi,"D Can, VR Martinez, P Papadopoulos  ",  ,2018.0,ieeexplore.ieee.org,https://ieeexplore.ieee.org/abstract/document/8462463/
+PySCF: the Python‐based simulations of chemistry framework,"Q Sun, TC Berkelbach, NS Blunt  ",Wiley  ,2018.0,Wiley Online Library,https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1340
+ Statsmodels: Econometric and statistical modeling with python,"S Seabold, J Perktold ",Proceedings of the 9th Python in  ,2010.0,pdfs.semanticscholar.org,https://pdfs.semanticscholar.org/3a27/6417e5350e29cb6bf04ea5a4785601d5a215.pdf
+ Python Programming Language.,G Van Rossum ,USENIX annual technical  ,2007.0,kelas,http://kelas-karyawan-bali.kurikulum.org/IT/en/2420-2301/Python_3721_kelas-karyawan-bali-kurikulumngetesumum.html
+ El tutorial de Python,"G Van Rossum, FL Drake Jr ",Dados não disponíveis,2017.0,ns2.elhacker.net,https://ns2.elhacker.net/descargas/manuales/Lenguajes%20de%20Programacion/Python/Tutorial%20Python%20(v2.5.2)%20-%20Guido%20van%20Rossum%20-%202009-222pags.pdf
+" A python book: Beginning python, advanced python, and python exercises",D Kuhlman ,Dados não disponíveis,2009.0,academia.edu,https://www.academia.edu/download/61967485/python_book_0120200202-79654-1mp3hj5.pdf
+ Python: A study of Delphic myth and its origins,J Fontenrose ,Dados não disponíveis,2022.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=6DJnEAAAQBAJ&oi=fnd&pg=PA1&dq=Python&ots=fiGcEJjAuR&sig=S3CAgs-p49FT4S9wB8H8IlZWKFQ
+ scikit-image: image processing in Python,"S Van der Walt, JL Schönberger, J Nunez",Dados não disponíveis,nan,"PeerJ, 2014",https://peerj.com/articles/453/?report=reader&utm_source=TrendMD&utm_campaign=PeerJ_TrendMD_1&utm_medium=TrendMD
+ Numerical methods in engineering with Python 3,J Kiusalaas ,Dados não disponíveis,2013.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=YlkgAwAAQBAJ&oi=fnd&pg=PP10&dq=Python&ots=-54r57PsXk&sig=JtM0X58EVnijlCu897VAqIDnxj4
+ Understanding the python gil,D Beazley ,PyCON Python Conference. Atlanta,2010.0,rrroger.github.io,https://rrroger.github.io/static/pdf/UnderstandingGIL.pdf
+ Numerical Python,"R Johansson, R Johansson, S John ",Dados não disponíveis,2019.0,Springer,https://link.springer.com/content/pdf/10.1007/978-1-4842-4246-9.pdf
+Astropy: A community Python package for astronomy,"TP Robitaille, EJ Tollerud, P Greenfield  ",Astronomy &  ,2013.0,aanda.org,https://www.aanda.org/articles/aa/abs/2013/10/aa22068-13/aa22068-13.html
+Python for beginners,E Shein ,Communications of the ACM,2015.0,dl.acm.org,https://dl.acm.org/doi/fullHtml/10.1145/2716560
+ The python language reference,"G VanRossum, FL Drake ",Dados não disponíveis,2010.0,cse.unr.edu,https://www.cse.unr.edu/~sushil/class/381/notes/python/docs-pdf/reference.pdf
+APLpy: astronomical plotting library in Python,"T Robitaille, E Bressert ",Astrophysics Source Code Library,2012.0,ui.adsabs.harvard.edu,https://ui.adsabs.harvard.edu/abs/2012ascl.soft08017R/abstract
+ Python in a Nutshell,"A Martelli, AM Ravenscroft, S Holden, P McGuire ",Dados não disponíveis,2023.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=2WSmEAAAQBAJ&oi=fnd&pg=PT28&dq=Python&ots=oUqXE1YA55&sig=WgHlEiYl_gsw_4_o22ta_MpKUWA
+Image processing in python,P Umesh ,CSI Communications,2012.0,Citeseer,https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=12957b2dbd5f03de67a7bf63753a13e95947b3bf#page=25
+ A primer on scientific programming with Python,HP Langtangen ,Dados não disponíveis,2016.0,Springer,https://link.springer.com/content/pdf/10.1007/978-3-662-49887-3.pdf
+ The quick Python book,N Ceder ,Dados não disponíveis,2018.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=aTkzEAAAQBAJ&oi=fnd&pg=PT25&dq=Python&ots=P0UoAfN2vd&sig=k382fadUhHto2qAPtytPj5q1gQE
+Pyteomics 4.0: five years of development of a Python proteomics framework,"LI Levitsky, JA Klein, MV Ivanov  ",Journal of proteome  ,2018.0,ACS Publications,https://pubs.acs.org/doi/abs/10.1021/acs.jproteome.8b00717
+The atomic simulation environment—a Python library for working with atoms,"AH Larsen, JJ Mortensen, J Blomqvist  ",Journal of Physics  ,2017.0,iopscience.iop.org,https://iopscience.iop.org/article/10.1088/1361-648X/aa680e/meta
+ PsychoPy—psychophysics software in Python,JW Peirce ,Journal of neuroscience methods,2007.0,Elsevier,https://www.sciencedirect.com/science/article/pii/S0165027006005772
+ PyWavelets: A Python package for wavelet analysis,"G Lee, R Gommers, F Waselewski, K Wohlfahrt  ",Journal of Open Source  ,2019.0,theoj.org,http://www.theoj.org/joss-papers/joss.01237/10.21105.joss.01237.pdf
+ Python for everybody,CR Severance ,Dados não disponíveis,2009.0,torontomu.ca,https://www.torontomu.ca/content/dam/information-technology-management/course-outlines/ITM200.pdf
+ Python essential reference,DM Beazley ,Dados não disponíveis,2009.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=Chr1NDlUcI8C&oi=fnd&pg=PR7&dq=Python&ots=OEIwwsiXCo&sig=zgLDIWXa-5nCe3huEU5oYQcj8MA
+PyPSA: Python for power system analysis,"T Brown, J Hörsch, D Schlachtberger ",arXiv preprint arXiv:1707.09913,2017.0,arxiv.org,https://arxiv.org/abs/1707.09913
+ pvlib python: A python package for modeling solar energy systems,"WF Holmgren, CW Hansen  ",Journal of Open Source  ,2018.0,joss.theoj.org,https://joss.theoj.org/papers/10.21105/joss.00884.pdf
+"Python Materials Genomics (pymatgen): A robust, open-source python library for materials analysis","SP Ong, WD Richards, A Jain, G Hautier  ",Computational Materials  ,2013.0,Elsevier,https://www.sciencedirect.com/science/article/pii/S0927025612006295
+ CosinorPy: a python package for cosinor-based rhythmometry,M Moškon ,BMC bioinformatics,2020.0,Springer,https://link.springer.com/article/10.1186/s12859-020-03830-w
+ NEURON and Python,"M Hines, AP Davison, E Muller ",Frontiers in neuroinformatics,2009.0,frontiersin.org,https://www.frontiersin.org/articles/10.3389/neuro.11.001.2009/full
+ Gensim—statistical semantics in python,"R Řehůřek, P Sojka ",Retrieved from genism. org,2011.0,Citeseer,https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=b55fe23d7290f59d14e51e7813f5950f5ff08b2b
+An Introduction to Statistics with Python,T Haslwanter ,With Applications in the Life Sciences.. Switzerland  ,2016.0,Springer,https://link.springer.com/content/pdf/10.1007/978-3-319-28316-6.pdf
+Logomaker: beautiful sequence logos in Python,"A Tareen, JB Kinney ",Bioinformatics,2020.0,academic.oup.com,https://academic.oup.com/bioinformatics/article-abstract/36/7/2272/5671693
+ SymPy: symbolic computing in Python,"A Meurer, CP Smith, M Paprocki, O Čertík  ",PeerJ Computer  ,2017.0,peerj.com,https://peerj.com/articles/cs-103.pdf
+ Python current trend applications-an overview,"AS Saabith, MMM Fareez, T Vinothraj ",International Journal of  ,2019.0,academia.edu,https://www.academia.edu/download/61390005/IJAERDV06I108548120191201-27336-1cr1jto.pdf
+ Effective Python,B Slatkin ,Dados não disponíveis,2019.0,books.google.com,https://books.google.com/books?hl=en&lr=&id=9kG4DwAAQBAJ&oi=fnd&pg=PT15&dq=Python&ots=8Maq4q7W7L&sig=ZmSWTs7zVpxCAtHw147MqExPcmY
+MPI for Python,"L Dalcín, R Paz, M Storti ",Journal of Parallel and Distributed Computing,2005.0,Elsevier,https://www.sciencedirect.com/science/article/pii/S0743731505000560
+PySAL: A Python library of spatial analytical methods,"SJ Rey, L Anselin ",Handbook of applied spatial analysis: Software tools  ,2009.0,Springer,https://link.springer.com/chapter/10.1007/978-3-642-03647-7_11
