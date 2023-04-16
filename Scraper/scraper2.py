@@ -9,11 +9,7 @@ from minimalyear import etl_process
 # Constantes da aplicação
 # Constante utilizadas para a remoção de informações desnecessárias após a coleta dos dados do Google Scholar
 FIELDS = ['Book', 'Authors', 'Jornal', 'Year', 'Publisher', 'Link']
-<<<<<<< HEAD:Scraper/scraper2.py
-JUNK = [['… ', ' ', ' …', ' ', '…'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]', '[CITATION][C]']]
-=======
 JUNK = [['… ', ' ', ' …',' ','…'], ['[HTML]', '[PDF]', '[LIVRO][B]', '[BOOK][B]','[CITATION][C]']]
->>>>>>> main:scraper2.py
 
 # Variáveis usadas para a coleta dos dados
 datalist = []  # Lista utilizada para salvar os dicionários apos a coleta dos dados
@@ -107,33 +103,6 @@ def filtering(lista):
     ingestocsv(datalist)
 
 
-<<<<<<< HEAD:Scraper/scraper2.py
-# Função de ingestão de dados em arquivo CSV
-def ingestocsv(dados):
-    if os.path.exists('rawdata\\dadosraiz.csv'):
-        os.remove('rawdata\\dadosraiz.csv')
-
-    with open('rawdata\\dadosraiz.csv', 'a', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
-        writer.writeheader()
-        writer.writerows(dados)
-
-
-def main():
-    # Variável de controle do laço de repetição do programa
-    c = 1
-
-    subject = str(input('Digite o assunto do artigo que deseja recuperar: '))
-    quantity = str(input('Digite quantas paginas de artigos que deseja recuperar: '))
-
-    for x in range(0, int(quantity) * 10, 10):
-
-        # Tenta fazer a requisição ao link desejado
-        try:
-            url = requests.get(
-                f'https://scholar.google.com/scholar?start={x}&q={subject}&hl=en&as_sdt=0,5').content
-
-=======
 def main():
     c=1
     subject = str(input('Digite o assunto do artigo que deseja recuperar: '))
@@ -146,7 +115,6 @@ def main():
             url = requests.get(
                 f'https://scholar.google.com/scholar?start={x}&q={subject}&hl=en&as_sdt=0,5').content
                 
->>>>>>> main:scraper2.py
             # Salva o campo HTML desejado de toda a página para uma lista e chama a função de coleta e limpeza de dados
             soup = BeautifulSoup(url, 'html.parser')
             lista = soup.find_all('div', class_='gs_ri')
@@ -157,26 +125,11 @@ def main():
             print(f'Ocorreu um erro de conexão, por favor verifique sua conexão com a internet!')
             print(f'Erro: {requests.exceptions.RequestException}')
 
-<<<<<<< HEAD:Scraper/scraper2.py
-        except ValueError as error:
-            print(f'Ocorreu um erro ao tentar coletar quantas paginas voce deseja recuperar\n')
-            print(f'Error: {error}')
-=======
         finally:
             print(f'Pagina {c} coletada com sucesso!')
             c+=1
-            
-    
+             
 
->>>>>>> main:scraper2.py
-
-        finally:
-            print(f'Pagina {c} coletada com sucesso!')
-            c += 1    
-
-<<<<<<< HEAD:Scraper/scraper2.py
-    etl_process()
-=======
 # Função de ingestão de dados em arquivo CSV
 def ingestocsv(dados):
 
@@ -187,7 +140,6 @@ def ingestocsv(dados):
         writer = csv.DictWriter(f, fieldnames=FIELDS)
         writer.writeheader()
         writer.writerows(dados)
->>>>>>> main:scraper2.py
 
 # Inicializa da aplicação
 if __name__ == '__main__':
